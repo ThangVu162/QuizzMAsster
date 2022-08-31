@@ -40,6 +40,7 @@ public class Quiz : MonoBehaviour
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         progressBar.maxValue = questions.Count;
         progressBar.value = 0;
+        timer.loadNextQuestion = false;
     }
 
     void Update()
@@ -50,7 +51,7 @@ public class Quiz : MonoBehaviour
             if (progressBar.value == progressBar.maxValue)
             {
                 isComplete = true;
-                timer.StopAllCoroutines();
+                Destroy(timer);
                 return;
             }
 
@@ -98,7 +99,7 @@ public class Quiz : MonoBehaviour
     void GetNextQuestion()
     {
 
-        if (questions.Count > 0)
+        if (questions.Count > 0 && timer.loadNextQuestion)
         {
             SetButtonState(true);
             SetDefaultButtonSprites();
